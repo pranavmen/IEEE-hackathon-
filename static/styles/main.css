@@ -1,0 +1,33 @@
+/* Basic Reset & Font Styles */
+body {
+  margin: 0;
+  font-family: 'Urbanist', sans-serif;
+  background: #f8f9fa; /* A neutral light background for all pages */
+}
+
+/* Header Styles */
+header h1 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #0a4275;
+}
+
+header h1 a {
+  text-decoration: none;
+  color: inherit;
+}
+
+header h1 span {
+  color: #00b4d8;
+}
+
+/* Footer Styles */
+footer {
+  text-align: center;
+  margin-top: 2rem;
+  padding: 1rem;
+  font-size: 0.9rem;
+  color: #6c757d;
+  background: #f1f1f1;
+}

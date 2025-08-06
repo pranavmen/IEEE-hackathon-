@@ -1,0 +1,259 @@
+/* book_appointment.css - Fancy style matching Doctor Dashboard */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background-color: #eaf6ff; /* Light soft blue */
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+.container {
+  background-color: #ffffff;
+  max-width: 650px;
+  width: 100%;
+  padding: 35px 45px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+/* 🔷 Heading Box */
+.container h1 {
+  font-size: 26px;
+  color: #2c3e50;
+  text-align: center;
+  padding: 12px 20px;
+  margin-bottom: 10px;
+  background-color: #d3deed;
+  border-radius: 8px;
+  border: 1px solid #124275;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+/* Subtitle below heading */
+.container .subtitle {
+  font-size: 14px;
+  color: #666;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+form .form-group {
+  margin-bottom: 18px;
+}
+
+label {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 6px;
+  color: #2c3e50;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #ccd1d9;
+  border-radius: 8px;
+  background-color: #f9fafc;
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #007bff;
+  background-color: #fff;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.btn-submit {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 12px 16px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  width: 100%;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.btn-submit:hover {
+  background: #0056b3;
+  transform: translateY(-1px);
+}
+
+.btn-submit:active {
+  transform: scale(0.98);
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 25px 20px;
+  }
+
+  h1 {
+    font-size: 22px;
+  }
+
+  .btn-submit {
+    font-size: 15px;
+  }
+}
+
+.theme-toggle-wrapper {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.theme-switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+}
+
+.theme-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 30px;
+}
+
+.slider::before {
+  position: absolute;
+  content: "";
+  height: 24px;
+  width: 24px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+.theme-switch input:checked + .slider {
+  background-color: #2196F3;
+}
+
+.theme-switch input:checked + .slider::before {
+  transform: translateX(30px);
+}
+
+body.dark {
+  background-color: #22335c;
+  color: #e2e8f0;
+  font-family: 'Urbanist', sans-serif;
+}
+
+/* Header */
+body.dark header {
+  background-color: #121826;
+  color: #e2e8f0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+/* Main card or section background */
+body.dark .appointment-form,
+body.dark .appointment-section,
+body.dark .container,
+body.dark .card,
+body.dark footer {
+  background-color: #1a2332;
+  color: #dbeafe;
+  border: 1px solid #334155;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+/* Form Labels */
+body.dark label {
+  color: #cbd5e1;
+  font-weight: 500;
+}
+
+/* Form Inputs */
+body.dark input,
+body.dark select,
+body.dark textarea {
+  background-color: #0f172a;
+  color: #f1f5f9;
+  border: 1px solid #3b4a60;
+  padding: 12px;
+  border-radius: 8px;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+body.dark input:focus,
+body.dark select:focus,
+body.dark textarea:focus {
+  border-color: #3b82f6;
+  outline: none;
+  background-color: #1e293b;
+}
+
+/* Buttons */
+body.dark .btn,
+body.dark .btn.btn-alt {
+  background: linear-gradient(90deg, #2563eb, #1d4ed8);
+  color: #ffffff;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+body.dark .btn:hover,
+body.dark .btn.btn-alt:hover {
+  background: #1e40af;
+}
+
+/* Footer */
+body.dark footer {
+  background-color: #111827;
+  color: #9ca3af;
+  border-top: 1px solid #2f3e51;
+  text-align: center;
+  padding: 16px;
+  font-size: 0.95rem;
+}
