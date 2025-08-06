@@ -1,0 +1,66 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'styles/doctor_dashboard.css' %}">
+<div class="container">
+
+  <aside class="sidebar">
+    <h2>CliQ</h2>
+    <nav class="nav-links">
+      <a href="{% url 'doctor_dashboard' %}" class="active">🏠 Dashboard</a>
+      <a href="{% url 'doctor_appointments' %}">📅 Appointments</a>
+      <a href="#">🕒 Availability</a>
+      <a href="{% url 'doctor_settings' %}">⚙️ Settings</a>
+      <a href="{% url 'logout' %}">🚪 Logout</a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <header>
+      <h1>Welcome Dr. {{ request.user.name }}</h1>
+      <p class="subtitle">Here's a quick overview of your schedule.</p>
+    </header>
+
+    <section class="cards">
+      <div class="card blue">
+        <h3>Today's Appointments</h3>
+        <p>5</p>
+      </div>
+      <div class="card green">
+        <h3>Upcoming Appointments</h3>
+        <p>12</p>
+      </div>
+      <div class="card orange">
+        <h3>Total Patients</h3>
+        <p>38</p>
+      </div>
+    </section>
+
+    <section class="appointments">
+      <h2>Today's Appointments</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Patient</th>
+            <th>Time</th>
+            <th>Reason</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Jane Smith</td>
+            <td>10:00 AM</td>
+            <td>Flu symptoms</td>
+          </tr>
+          <tr>
+            <td>Rahul Patel</td>
+            <td>11:30 AM</td>
+            <td>Routine Check-up</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</div>
+{% endblock content %}

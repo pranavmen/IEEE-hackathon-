@@ -1,0 +1,21 @@
+<div class="roomListRoom">
+    {% for clinic in clinics %}
+    <div class="roomListRoom__header">
+        <a href="{% url 'user-profile' clinic.host.id %}" class="roomListRoom__author">
+            <div class="avatar avatar--small">
+                <img src="{{clinic.host.avatar.url}}" />
+            </div>
+            <span>@{{clinic.host.username}}</span>
+        </a>
+        <div class="roomListRoom__actions">
+            <span>{{clinic.created|timesince}} ago</span>
+        </div>
+    </div>
+    <div class="roomListRoom__content">
+        <a href="{% url 'clinic' clinic.id %}">{{clinic.name}}</a>
+    </div>
+    <div class="roomListRoom__meta">
+        <p class="roomListRoom__topic">Specialization: {{clinic.specialization}}</p>
+    </div>
+    {% endfor %}
+</div>

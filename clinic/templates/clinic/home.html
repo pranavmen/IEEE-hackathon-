@@ -1,0 +1,96 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'styles/home.css' %}" />
+
+<header>
+    <h1>
+      <div class="logo-container">
+        <a href="{% url 'home' %}">
+          <img src="{% static 'images/CliQ logo.jpeg' %}" alt="CliQ Logo" class="site-logo">
+          <span class="site-title">Cli<span>Q</span></span>
+        </a>
+      </div>
+    </h1>
+    <nav>
+      <nav class="nav-tools">
+        <div class="top-controls">
+          <div class="theme-toggle">
+            <label class="theme-label" for="theme-toggle"><b>Theme</b></label>
+            <label class="switch">
+              <input type="checkbox" id="theme-toggle">
+              <span class="slider"></span>
+            </label>
+          </div>
+          <button class="support-btn" onclick="toggleSupport()">Support &amp; FAQs</button>
+        </div>
+      </nav>
+    </nav>
+
+    <div id="support-section" class="support-section" style="display: none;">
+      <h3>Need Help?</h3>
+      <div class="faq-item">
+        <p class="faq-question">📅 How to book an appointment?</p>
+        <p class="faq-answer">Click "Login as Patient", then select your preferred doctor and date.</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-question">❌ How to cancel an appointment?</p>
+        <p class="faq-answer">Login to your dashboard, find the appointment, and click cancel.</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-question">🔐 Doctor login issues?</p>
+        <p class="faq-answer">Ensure your credentials are correct. If issues persist, contact admin support.</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-question">📭 No slots available?</p>
+        <p class="faq-answer">Try selecting a different doctor or check back later for availability.</p>
+      </div>
+    </div>
+</header>
+
+<main>
+    <div class="container">
+      <h2>Welcome to CliQ</h2>
+      <p><b>Your trusted platform for booking doctor appointments with ease, speed, and reliability.</b></p>
+      <div class="cta-buttons">
+        <a class="btn" href="{% url 'login' %}">Login as Patient</a>
+        <a class="btn btn-alt" href="{% url 'login' %}">Login as Doctor</a>
+      </div>
+    </div>
+</main>
+
+<footer>
+    <p>© 2025 CliQ. All rights reserved.</p>
+</footer>
+
+<script>
+    function toggleSupport() {
+      const section = document.getElementById('support-section');
+      section.style.display = section.style.display === 'none' ? 'block' : 'none';
+    }
+
+    const toggle = document.getElementById('theme-toggle');
+
+    // Load saved preference
+    document.addEventListener("DOMContentLoaded", () => {
+      const mode = localStorage.getItem('theme');
+      if (mode === 'dark') {
+        document.body.classList.add('dark');
+        toggle.checked = true;
+      }
+    });
+
+    // Toggle event
+    toggle.addEventListener('change', () => {
+      if (toggle.checked) {
+        document.body.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        document.body.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      }
+    });
+</script>
+
+{% endblock content %}

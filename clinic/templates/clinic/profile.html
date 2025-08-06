@@ -1,0 +1,18 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<h1>{{user.name}}</h1>
+
+<p>@{{user.username}}</p>
+<div class="profile-pic">
+    <img src="{{user.avatar.url}}" alt="Profile Picture" />
+</div>
+<p>{{user.bio}}</p>
+
+<h2>Clinics Hosted:</h2>
+<ul>
+    {% for clinic in clinics %}
+    <li><a href="{% url 'clinic' clinic.id %}">{{clinic.name}}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}

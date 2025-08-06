@@ -1,0 +1,16 @@
+<div class="topics">
+    <div class="topics__header">
+        <h2>Browse Specializations</h2>
+    </div>
+    <ul class="topics__list">
+        <li>
+            <a href="{% url 'home' %}" class="active">All <span>{{specializations.count}}</span></a>
+        </li>
+        {% for specialization in specializations %}
+        <li>
+            <a href="{% url 'home' %}?q={{specialization.name}}">{{specialization.name}}
+                <span>{{specialization.clinic_set.all.count}}</span></a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>

@@ -1,0 +1,12 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Settings</h1>
+    <p>Here you can update your profile and other settings.</p>
+    
+    {# You can add a form here later to update user details #}
+    <p>Username: {{ request.user.username }}</p>
+    <p>Email: {{ request.user.email }}</p>
+</div>
+{% endblock content %}
