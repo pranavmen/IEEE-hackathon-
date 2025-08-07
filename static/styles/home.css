@@ -479,3 +479,77 @@ main::after {
   position: relative;
   z-index: 2;
 }
+
+:root {
+  --bg-color: #f4f6f8;
+  --text-color: #000;
+  --card-bg: #ffffff;
+}
+
+body.dark {
+  --bg-color: #0d1117;
+  --text-color: #ffffff;
+  --card-bg: #161b22;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Section Layout */
+.features {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+/* Section Headings */
+.features h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+/* Grids */
+.feature-grid,
+.doctors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+  justify-content: center;
+  margin: 30px 0;
+}
+
+/* Cards */
+.feature-item,
+.doctor-card {
+  background-color: var(--card-bg);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.feature-item:hover,
+.doctor-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+}
+
+/* Images */
+.feature-item img,
+.doctor-card img {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 15px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Doctor Names */
+.doctor-card h4 {
+  margin-top: 10px;
+  font-size: 1.2rem;
+}

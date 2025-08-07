@@ -1,0 +1,15 @@
+/* static/styles/appointment_form.css */
+.appointment-form-container {
+    width: 50%;
+    margin: 50px auto;
+    padding: 20px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.appointment-form-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}

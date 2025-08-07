@@ -67,3 +67,26 @@ if (photoInput)
 // Scroll to Bottom
 const conversationThread = document.querySelector(".room__box");
 if (conversationThread) conversationThread.scrollTop = conversationThread.scrollHeight;
+
+// static/js/script.js
+const themeToggle = document.getElementById('theme-toggle');
+const body = document.body;
+
+themeToggle.addEventListener('change', () => {
+    if (themeToggle.checked) {
+        body.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+    } else {
+        body.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+    }
+});
+
+// Load saved theme
+document.addEventListener("DOMContentLoaded", () => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        body.classList.add('dark');
+        themeToggle.checked = true;
+    }
+});
