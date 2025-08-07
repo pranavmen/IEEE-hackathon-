@@ -50,16 +50,66 @@
 </header>
 
 <main>
-    <div class="container">
-      <h2>Welcome to CliQ</h2>
-      <p><b>Your trusted platform for booking doctor appointments with ease, speed, and reliability.</b></p>
-      <div class="cta-buttons">
-        <a class="btn" href="{% url 'login' %}">Login as Patient</a>
-        <a class="btn btn-alt" href="{% url 'login' %}">Login as Doctor</a>
-      </div>
+  <div class="container">
+    <h2>Welcome to CliQ</h2>
+    <p><b>Your trusted platform for booking doctor appointments with ease, speed, and reliability.</b></p>
+    <div class="cta-buttons">
+      <a class="btn" href="{%url 'login' %}">Login as Patient</a>
+      <a class="btn btn-alt" href="{% url 'login' %}">Login as Doctor</a>
     </div>
-</main>
+  </div>
+  <!-- <div class="image-bottom">
+    <img src="images/clinic background.jpg" alt="Right Side Image" />
+  </div> -->
 
+  <section class="features">
+  <h2>Our Specialities</h2>
+  <div class="feature-grid">
+    <div class="feature-item">
+      <img src="https://cdn-icons-png.flaticon.com/512/3109/3109871.png" alt="24/7 Service">
+      <h3>24/7 Availability</h3>
+      <p>Doctors are available round the clock to serve your healthcare needs anytime, anywhere.</p>
+    </div>
+    <div class="feature-item">
+      <img src="https://cdn-icons-png.flaticon.com/512/3774/3774299.png" alt="Expert Doctors">
+      <h3>Experienced Specialists</h3>
+      <p>Our panel includes highly experienced and qualified specialists across various fields.</p>
+    </div>
+    <div class="feature-item">
+      <img src="https://cdn-icons-png.flaticon.com/512/2784/2784461.png" alt="Online Consultation">
+      <h3>Online Consultations</h3>
+      <p>Skip the wait and consult your doctor online from the comfort of your home.</p>
+    </div>
+    <div class="feature-item">
+      <img src="https://cdn-icons-png.flaticon.com/512/1484/1484848.png" alt="Affordable Care">
+      <h3>Affordable & Transparent</h3>
+      <p>Transparent pricing and affordable care plans tailored to your needs.</p>
+    </div>
+  </div>
+<section id="doctors">
+  <h2>Meet Our Doctors</h2>
+  <div class="doctors-grid">
+    <div class="doctor-card">
+      <img src="./dr. sharma.jpg" alt="Dr. Sharma">
+      <h4>Dr. Aarti Sharma</h4>
+      <p>Cardiologist with 15+ years of experience. Compassionate care and accurate diagnosis guaranteed.</p>
+    </div>
+    <div class="doctor-card">
+      <img src="./dr.patel.jpg" alt="Dr. Patel">
+      <h4>Dr. Rohit Patel</h4>
+      <p>Orthopedic Surgeon known for precision and successful recovery cases.</p>
+    </div>
+    <div class="doctor-card">
+      <img src="./dr.khan.jpeg" alt="Dr. Khan">
+      <h4>Dr. Sana Khan</h4>
+      <p>Dermatologist & Skin Specialist helping patients gain confidence through clear skin.</p>
+    </div>
+  </div>
+</section>
+</section>
+
+
+</main>
 <footer>
     <p>© 2025 CliQ. All rights reserved.</p>
 </footer>

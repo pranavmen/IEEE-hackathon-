@@ -1,12 +1,18 @@
 {% extends 'main.html' %}
+{% load static %}
 
 {% block content %}
-<div class="container">
+<link rel="stylesheet" href="{% static 'styles/settings.css' %}">
+
+<div class="settings-container">
     <h1>Settings</h1>
     <p>Here you can update your profile and other settings.</p>
     
-    {# You can add a form here later to update user details #}
     <p>Username: {{ request.user.username }}</p>
     <p>Email: {{ request.user.email }}</p>
+
+    <hr>
+
+    <a href="{% url 'update-user' %}" class="btn">Edit Profile</a>
 </div>
 {% endblock content %}

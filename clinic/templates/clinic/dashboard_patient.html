@@ -4,11 +4,11 @@
 {% block content %}
 <link rel="stylesheet" href="{% static 'styles/dashboard_patient.css' %}">
 <div class="sidebar">
-    <h2>CliQ</h2>
+    <h2>ClinicOnTheNet</h2>
     <ul>
         <li><a href="{% url 'patient_dashboard' %}"><span>🏠</span> Dashboard</a></li>
         <li><a href="{% url 'patient_appointments' %}"><span>📅</span> Appointments</a></li>
-        <li><a href="#"><span>🩺</span> Doctors</a></li> {# This can link to the home page or a new doctors list page #}
+        <li><a href="{% url 'doctor_list' %}"><span>🩺</span> Doctors</a></li>
         <li><a href="{% url 'patient_settings' %}"><span>⚙️</span> Settings</a></li>
         <li><a href="{% url 'logout' %}"><span>🚪</span> Logout</a></li>
     </ul>
@@ -26,11 +26,11 @@
         </div>
         <div class="card" style="background-color: #28a745; color: white;">
             <h3>Completed Visits</h3>
-            <p>5</p>
+            <p>{{ completed_visits_counts }}</p>
         </div>
-        <div class="card" style="background-color: #fd7e14; color: white;">
-            <h3>Prescriptions</h3>
-            <p>3</p>
+        <div class="card" style="background-color: #17a2b8; color: white;">
+            <h3>Active Doctors</h3>
+            <p>{{ doctor_count }}</p>
         </div>
     </div>
 
@@ -50,6 +50,7 @@
                     <td>Dr. {{ appointment.doctor.name }}</td>
                     <td>{{ appointment.appointment_time|time:"g:i A" }} on {{ appointment.appointment_date|date:"F j, Y" }}</td>
                     <td>{{ appointment.specialization.name|default:'General' }}</td>
+
                 </tr>
                 {% empty %}
                 <tr>

@@ -1,0 +1,31 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'styles/doctor_list.css' %}">
+
+<div class="doctor-list-container">
+    <h2>Our Doctors</h2>
+    <div class="doctors-grid">
+        {% for doctor in doctors %}
+        <div class="doctor-card">
+            <img src="{{ doctor.avatar.url }}" alt="Dr. {{ doctor.name }}">
+            <h4>Dr. {{ doctor.name }}</h4>
+            <p>{{ doctor.specialization.name|default:'General Practitioner' }}</p>
+            <p>{{ doctor.bio|truncatewords:15 }}</p>
+            <div class="availability-info">
+                <h5>Availability:</h5>
+                {% for slot in doctor.availability.all %}
+                    <p><strong>{{ slot.day }}:</strong> {{ slot.start_time|time:"g:i A" }} - {{ slot.end_time|time:"g:i A" }}</p>
+                {% empty %}
+                    <p>No availability set.</p>
+                {% endfor %}
+            </div>
+            <a href="{% url 'user-profile' doctor.id %}" class="btn">View Profile</a>
+        </div>
+        {% empty %}
+        <p>No doctors are currently available.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

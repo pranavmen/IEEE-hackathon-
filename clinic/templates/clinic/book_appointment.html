@@ -13,16 +13,23 @@
       {% csrf_token %}
       <div class="form-group">
         <label for="patient_name">Patient Name</label>
-        {# The backend will use the logged-in user, but we keep this field as requested. #}
         <input type="text" id="patient_name" name="patient_name" value="{{ request.user.name }}" required>
       </div>
 
       <div class="form-group">
+        <label for="clinic">Select Clinic</label>
+        <select id="clinic" name="clinic" required>
+          <option value="">-- Select --</option>
+          {% for clinic in clinics %}
+            <option value="{{ clinic.id }}">{{ clinic.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-group">
         <label for="doctor">Select Doctor</label>
-        {# The 'name' attribute must match your Django form field name. #}
         <select id="doctor" name="doctor" required>
           <option value="">-- Select --</option>
-          {# Note: For this to work, your 'book_appointment' view must pass a 'doctors' queryset to the template #}
           {% for doctor in doctors %}
             <option value="{{ doctor.id }}">{{ doctor.name }} - {{ doctor.specialization.name|default:'General' }}</option>
           {% endfor %}
@@ -31,19 +38,16 @@
 
       <div class="form-group">
         <label for="date">Select Date</label>
-        {# The 'name' attribute must match your Django form field name. #}
         <input type="date" id="date" name="appointment_date" required>
       </div>
 
       <div class="form-group">
         <label for="time">Select Time</label>
-        {# The 'name' attribute must match your Django form field name. #}
         <input type="time" id="time" name="appointment_time" required>
       </div>
 
       <div class="form-group">
         <label for="reason">Reason for Visit</label>
-        {# The 'name' attribute must match your Django form field name. #}
         <textarea id="reason" name="reason" rows="4" required></textarea>
       </div>
 

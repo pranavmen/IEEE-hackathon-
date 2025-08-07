@@ -5,8 +5,9 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
-from .models import Clinic, Specialization, User, Appointment
-from .forms import ClinicForm, UserCreationForm, AppointmentForm
+from .models import Clinic, Specialization, User, Appointment, Availability
+from .forms import ClinicForm, UserCreationForm, AppointmentForm, UserUpdateForm, AvailabilityForm
+from datetime import date
 
 def loginPage(request):
     if request.user.is_authenticated:
@@ -16,7 +17,7 @@ def loginPage(request):
             return redirect('patient_dashboard')
 
     if request.method == 'POST':
-        email = request.POST.get('email').lower()
+        email = request.POST.get('email')
         password = request.POST.get('password')
         try:
             user = User.objects.get(email=email)
@@ -140,13 +141,27 @@ def deleteClinic(request, pk):
 # New Views for dashboards and booking
 @login_required(login_url='login')
 def doctor_dashboard(request):
-    return render(request, 'clinic/dashboard_doctor.html')
+    appointments = Appointment.objects.filter(doctor=request.user)
+    context = {'appointments': appointments}
+    return render(request, 'clinic/dashboard_doctor.html', context)
 
 @login_required(login_url='login')
 def patient_dashboard(request):
+    today = date.today()
     # Fetch upcoming appointments for the logged-in patient
     appointments = Appointment.objects.filter(patient=request.user)
-    context = {'appointments': appointments}
+    doctor_count = User.objects.filter(role='doctor',is_active=True).count()
+    upcoming_appointments = Appointment.objects.filter(
+        patient=request.user,
+        appointment_date__gte=today
+    ).order_by('appointment_date', 'appointment_time')
+    completed_visits_count = Appointment.objects.filter(
+        patient=request.user,
+        appointment_date__lt=today
+    ).count()
+    context = {'appointments': upcoming_appointments,  # Pass only upcoming appointments to the table
+        'completed_visits_count': completed_visits_count,
+        'doctor_count': doctor_count,}
     # Corrected template path below
     return render(request, 'clinic/dashboard_patient.html', context)
 
@@ -154,6 +169,7 @@ def patient_dashboard(request):
 def book_appointment(request):
     form = AppointmentForm()
     doctors = User.objects.filter(role='doctor')
+    clinics = Clinic.objects.all()
     if request.method == 'POST':
         form = AppointmentForm(request.POST)
         if form.is_valid():
@@ -165,7 +181,7 @@ def book_appointment(request):
             appointment.save()
             return redirect('patient_dashboard')
 
-    context = {'form': form, 'doctors': doctors}
+    context = {'form': form, 'doctors': doctors, 'clinics':clinics}
     return render(request, 'clinic/book_appointment.html', context)
 
 # Add these new views at the end of CliQ/clinic/views.py
@@ -196,3 +212,84 @@ def doctor_appointments(request):
 def doctor_settings(request):
     # You can add logic here for updating user settings
     return render(request, 'clinic/settings.html')
+
+# CliQ/clinic/views.py
+
+# ... (existing imports)
+
+@login_required(login_url='login')
+def update_appointment(request, pk):
+    appointment = Appointment.objects.get(id=pk)
+    form = AppointmentForm(instance=appointment)
+
+    if request.user != appointment.patient:
+        # You can redirect to a 'permission-denied' page or back to the dashboard
+        return redirect('patient_dashboard')
+
+    if request.method == 'POST':
+        form = AppointmentForm(request.POST, instance=appointment)
+        if form.is_valid():
+            form.save()
+            messages.success(request,'Appointment updated successfully ')
+            return redirect('patient_appointments')
+
+    context = {'form': form, 'appointment': appointment}
+    return render(request, 'clinic/appointment_form.html', context)
+
+@login_required(login_url='login')
+def delete_appointment(request, pk):
+    appointment = Appointment.objects.get(id=pk)
+
+    if request.user != appointment.patient:
+        return redirect('patient_dashboard')
+
+    if request.method == 'POST':
+        appointment.delete()
+        messages.success(request,'Appointment deleted sucessfully')
+        return redirect('patient_appointments')
+
+    return render(request, 'clinic/delete.html', {'obj': appointment})
+
+@login_required(login_url='login')
+def update_user(request):
+    user = request.user
+    form = UserUpdateForm(instance=user)
+
+    if request.method == 'POST':
+        form = UserUpdateForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Profile updated successfully!')
+            # Redirect to the correct dashboard based on user role
+            if user.role == 'doctor':
+                return redirect('doctor_dashboard')
+            else:
+                return redirect('patient_dashboard')
+
+    context = {'form': form}
+    return render(request, 'clinic/update_user_form.html', context)
+
+@login_required(login_url='login')
+def doctor_list(request):
+    doctors = User.objects.filter(role='doctor', is_active=True).prefetch_related('availability')
+    context = {'doctors': doctors}
+    return render(request, 'clinic/doctor_list.html', context)
+
+@login_required(login_url='login')
+def set_availability(request):
+    if request.user.role != 'doctor':
+        return redirect('home')
+
+    if request.method == 'POST':
+        form = AvailabilityForm(request.POST)
+        if form.is_valid():
+            availability = form.save(commit=False)
+            availability.doctor = request.user
+            availability.save()
+            messages.success(request, 'Availability set successfully!')
+            return redirect('doctor_dashboard')
+    else:
+        form = AvailabilityForm()
+    
+    context = {'form': form}
+    return render(request, 'clinic/set_availability.html', context)

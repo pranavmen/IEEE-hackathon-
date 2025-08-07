@@ -15,8 +15,8 @@ class User(AbstractUser):
     avatar = models.ImageField(null=True, default="avatar.svg")
 
     # Use email for login instead of username
-    USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = []
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
 
 
 class Specialization(models.Model):
@@ -62,3 +62,24 @@ class Appointment(models.Model):
 
     class Meta:
         ordering = ['-appointment_date', '-appointment_time']
+
+class Availability(models.Model):
+    DAY_CHOICES = (
+        ('Monday', 'Monday'),
+        ('Tuesday', 'Tuesday'),
+        ('Wednesday', 'Wednesday'),
+        ('Thursday', 'Thursday'),
+        ('Friday', 'Friday'),
+        ('Saturday', 'Saturday'),
+        ('Sunday', 'Sunday'),
+    )
+    doctor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='availability')
+    day = models.CharField(max_length=10, choices=DAY_CHOICES)
+    start_time = models.TimeField()
+    end_time = models.TimeField()
+
+    class Meta:
+        unique_together = ('doctor', 'day',) # A doctor can only have one availability entry per day
+
+    def __str__(self):
+        return f"Dr. {self.doctor.name}'s availability on {self.day}"

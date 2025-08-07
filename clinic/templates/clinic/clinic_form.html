@@ -1,9 +1,14 @@
 {% extends 'main.html' %}
+{% load static %}
 
 {% block content %}
-<form method="POST" action="">
-    {% csrf_token %}
-    {{form.as_p}}
-    <input type="submit" value="Submit" />
-</form>
+<link rel="stylesheet" href="{% static 'styles/clinic_form.css' %}">
+
+<div class="clinic-form-container">
+    <form method="POST" action="">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="Submit" />
+    </form>
+</div>
 {% endblock %}

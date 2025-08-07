@@ -11,6 +11,8 @@
             Appointment with Dr. {{ appointment.doctor.name }} on 
             {{ appointment.appointment_date }} at {{ appointment.appointment_time }}
             (Reason: {{ appointment.reason }})
+            - <a href="{% url 'update-appointment' appointment.id %}">Edit</a>
+            - <a href="{% url 'delete-appointment' appointment.id %}">Delete</a>
         </li>
     {% empty %}
         <li>You have no appointments.</li>

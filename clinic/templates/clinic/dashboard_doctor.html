@@ -6,11 +6,11 @@
 <div class="container">
 
   <aside class="sidebar">
-    <h2>CliQ</h2>
+    <h2>ClinicOnTheNet</h2>
     <nav class="nav-links">
       <a href="{% url 'doctor_dashboard' %}" class="active">🏠 Dashboard</a>
       <a href="{% url 'doctor_appointments' %}">📅 Appointments</a>
-      <a href="#">🕒 Availability</a>
+      <a href="{% url 'set_availability' %}">🕒 Availability</a>
       <a href="{% url 'doctor_settings' %}">⚙️ Settings</a>
       <a href="{% url 'logout' %}">🚪 Logout</a>
     </nav>
@@ -38,29 +38,32 @@
     </section>
 
     <section class="appointments">
-      <h2>Today's Appointments</h2>
+      <h2>Upcoming Appointments</h2>
       <table>
-        <thead>
-          <tr>
-            <th>Patient</th>
-            <th>Time</th>
-            <th>Reason</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Jane Smith</td>
-            <td>10:00 AM</td>
-            <td>Flu symptoms</td>
-          </tr>
-          <tr>
-            <td>Rahul Patel</td>
-            <td>11:30 AM</td>
-            <td>Routine Check-up</td>
-          </tr>
-        </tbody>
+          <thead>
+              <tr>
+                  <th>Patients</th>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>Reasons</th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for appointment in appointments %}
+              <tr>
+                  <td>{{  appointment.patient.name }}</td>
+                  <td>{{ appointment.appointment_time|time:"g:i A" }}</td>
+                    <td>{{ appointment.appointment_date|date:"F j, Y" }}</td>
+                  <td>{{ appointment.reason }}</td>
+              </tr>
+              {% empty %}
+              <tr>
+                  <td colspan="4">You have no upcoming appointments.</td>
+              </tr>
+              {% endfor %}
+          </tbody>
       </table>
-    </section>
+  </section>
   </main>
 </div>
 {% endblock content %}

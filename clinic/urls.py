@@ -29,4 +29,13 @@ urlpatterns = [
     # Doctor URLs (You can create separate ones if functionality differs)
     path('doctor/appointments/', views.doctor_appointments, name='doctor_appointments'),
     path('doctor/settings/', views.doctor_settings, name='doctor_settings'),
+
+    # Appointment CRUD URLs
+    path('book-appointment/', views.book_appointment, name='book_appointment'),
+    path('update-appointment/<str:pk>/', views.update_appointment, name='update-appointment'),
+    path('delete-appointment/<str:pk>/', views.delete_appointment, name='delete-appointment'),
+
+    path('update-user/', views.update_user, name='update-user'),
+    path('doctors/', views.doctor_list, name='doctor_list'),
+    path('set-availability/', views.set_availability, name='set_availability'),
 ]
