@@ -1,0 +1,133 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'styles/book_new.css' %}">
+
+<body>
+  <div class="container">
+    <h1>Book an Appointment</h1>
+    <p class="subtitle">Fill in the details to schedule your consultation</p>
+
+    <form class="appointment-form" action="{% url 'book_appointment' %}" method="POST">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="patient_name">Patient Name</label>
+        <input type="text" id="patient_name" name="patient_name" value="{{ request.user.first_name }} {{ request.user.last_name }}" required>
+      </div>
+
+      <div class="form-group">
+        <label for="clinic">Select Clinic</label>
+        <select id="clinic" name="clinic" required>
+          <option value="">-- Select --</option>
+          {% for clinic in clinics %}
+            <option value="{{ clinic.id }}">{{ clinic.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="doctor">Select Doctor</label>
+        <select id="doctor" name="doctor" required>
+            <option value="">-- Select --</option>
+          {% for doctor in doctors %}
+            <option value="{{ doctor.id }}">{{ doctor.first_name }} {{ doctor.last_name }} - {{ doctor.specialization.name|default:'General' }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="date">Select Date</label>
+        <input type="date" id="date" name="appointment_date" required>
+      </div>
+
+      <div class="form-group">
+        <label for="time">Select Time</label>
+        <input type="time" id="time" name="appointment_time" step="1800" required> </div>
+
+      <div class="form-group" id="availabilityStatus"></div>
+
+      <div class="form-group">
+        <label for="reason">Reason for Visit</label>
+        <textarea id="reason" name="reason" rows="4" required></textarea>
+      </div>
+
+      <button type="submit" class="btn-submit" id="submitBtn" disabled>Book Appointment</button>
+    </form>
+  </div>
+
+<script>
+  const toggle = document.getElementById('theme-toggle');
+  document.addEventListener("DOMContentLoaded", () => {
+    const mode = localStorage.getItem('theme');
+    if (mode === 'dark') {
+      document.body.classList.add('dark');
+      if (toggle) {
+        toggle.checked = true;
+      }
+    }
+  });
+  if (toggle) {
+    toggle.addEventListener('change', () => {
+      if (toggle.checked) {
+        document.body.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        document.body.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      }
+    });
+  }
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Get references to the form elements
+    const doctorSelect = document.getElementById('doctor');
+    const dateInput = document.getElementById('date');
+    const timeInput = document.getElementById('time');
+    const statusDiv = document.getElementById('availabilityStatus');
+    const submitBtn = document.getElementById('submitBtn');
+
+    // Add event listeners to the inputs that determine availability
+    doctorSelect.addEventListener('change', checkSlotAvailability);
+    dateInput.addEventListener('change', checkSlotAvailability);
+    timeInput.addEventListener('change', checkSlotAvailability);
+
+    async function checkSlotAvailability() {
+        const doctorId = doctorSelect.value;
+        const date = dateInput.value;
+        const time = timeInput.value;
+
+        // Don't do anything if not all fields are filled
+        if (!doctorId || !date || !time) {
+            statusDiv.innerHTML = '';
+            submitBtn.disabled = true; // Keep button disabled
+            return;
+        }
+
+        // Construct the URL to your Django view that checks availability
+        const url = `/appointments/check-availability/?doctor_id=${doctorId}&date=${date}&time=${time}`;
+
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+
+            if (data.is_available) {
+                statusDiv.innerHTML = '<strong style="color: #28a745;">Slot is available! ✅</strong>';
+                submitBtn.disabled = false; // ✅ Enable the submit button
+            } else {
+                statusDiv.innerHTML = '<strong style="color: #dc3545;">This slot is already booked. ❌</strong>';
+                submitBtn.disabled = true; // ❌ Keep submit button disabled
+            }
+        } catch (error) {
+            console.error('Error checking availability:', error);
+            statusDiv.innerHTML = '<strong style="color: #ffc107;">Could not check availability.</strong>';
+            submitBtn.disabled = true;
+        }
+    }
+});
+</script>
+
+</body>
+{% endblock content %}

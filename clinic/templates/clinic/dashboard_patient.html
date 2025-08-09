@@ -26,7 +26,7 @@
         </div>
         <div class="card" style="background-color: #28a745; color: white;">
             <h3>Completed Visits</h3>
-            <p>{{ completed_visits_counts }}</p>
+            <p>{{ completed_appointments.count }}</p>
         </div>
         <div class="card" style="background-color: #17a2b8; color: white;">
             <h3>Active Doctors</h3>
@@ -45,10 +45,10 @@
                 </tr>
             </thead>
             <tbody>
-                {% for appointment in appointments %}
+                {% for appointment in upcoming_appointments %}
                 <tr>
                     <td>Dr. {{ appointment.doctor.name }}</td>
-                    <td>{{ appointment.appointment_time|time:"g:i A" }} on {{ appointment.appointment_date|date:"F j, Y" }}</td>
+                    <td>{{ appointment.appointment_datetime|time:"g:i A" }} on {{ appointment.appointment_datetime|date:"F j, Y" }}</td>
                     <td>{{ appointment.specialization.name|default:'General' }}</td>
 
                 </tr>
@@ -60,7 +60,8 @@
             </tbody>
         </table>
     </section>
-
+    
+</section>
     <div class="book-btn-wrapper">
         <a href="{% url 'book_appointment' %}" class="book-btn">+ Book Appointment</a>
     </div>
