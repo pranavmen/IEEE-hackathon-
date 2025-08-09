@@ -1,0 +1,208 @@
+/* static/styles/patient_appointment.css */
+
+/* --- General Setup --- */
+.appointments-container {
+    max-width: 950px;
+    margin: 40px auto;
+    padding: 20px;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* --- Header Styling --- */
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.header h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #1a3a5d; /* Deep blue for a professional look */
+    margin-bottom: 10px;
+}
+
+.header p {
+    font-size: 1.1rem;
+    color: #5a738c;
+}
+
+/* --- Appointment Card Styling --- */
+.appointments-list {
+    display: grid;
+    gap: 25px; /* Spacing between cards */
+}
+
+.appointment-card {
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+    border-left: 6px solid #4a90e2; /* Accent border */
+}
+
+.appointment-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.12);
+}
+
+.card-details .doctor-name {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 8px;
+}
+
+.card-details .appointment-time,
+.card-details .appointment-reason {
+    font-size: 1rem;
+    color: #6a7c8e;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+/* --- Icon Styling (using background images) --- */
+.card-details .appointment-time::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%234a90e2'%3E%3Cpath d='M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z'/%3E%3Cpath d='M13 7h-2v6h6v-2h-4z'/%3E%3C/svg%3E");
+    background-size: contain;
+}
+
+.card-details .appointment-reason::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%234a90e2'%3E%3Cpath d='M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z'/%3E%3Cpath d='M11 11h2v6h-2zm0-4h2v2h-2z'/%3E%3C/svg%3E");
+    background-size: contain;
+}
+
+/* --- Action Buttons --- */
+.card-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.btn {
+    padding: 10px 22px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.btn-edit {
+    background-color: #e7f5ec;
+    color: #28a745;
+}
+
+.btn-edit:hover {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-delete {
+    background-color: #fbe9e7;
+    color: #dc3545;
+}
+
+.btn-delete:hover {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* --- No Appointments Message --- */
+.no-appointments {
+    text-align: center;
+    padding: 50px;
+    background-color: #f8f9fa;
+    border-radius: 15px;
+}
+
+.no-appointments .btn {
+    margin-top: 20px;
+    background: #007bff;
+    color: white;
+    display: inline-block;
+}
+
+.no-appointments .btn:hover {
+    background: #0056b3;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 768px) {
+    .appointment-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .card-actions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+}
+/* static/styles/patient_appointment.css */
+
+/* --- Enhanced Background --- */
+body {
+    background-color: #f8f9fa; /* Fallback color */
+    background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    position: relative;
+    overflow-x: hidden; /* Prevents horizontal scroll from decorative shapes */
+}
+
+/* --- Decorative Blobs --- */
+body::before, body::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    z-index: -1; /* Puts the shapes behind the content */
+    opacity: 0.5;
+    filter: blur(50px); /* Softens the edges of the shapes */
+}
+
+/* First decorative blob */
+body::before {
+    width: 350px;
+    height: 350px;
+    top: 10%;
+    left: -150px;
+    background-color: rgba(66, 135, 245, 0.15);
+}
+
+/* Second decorative blob */
+body::after {
+    width: 450px;
+    height: 450px;
+    bottom: 5%;
+    right: -180px;
+    background-color: rgba(33, 150, 243, 0.1);
+}
+
+/* Ensure the main container is above the background shapes */
+.appointments-container {
+    position: relative;
+    z-index: 1;
+    max-width: 950px;
+    margin: 40px auto;
+    padding: 20px;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* --- Header Styling (included for context) --- */
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+}

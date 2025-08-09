@@ -1,21 +1,109 @@
 /* static/styles/delete.css */
+
+/* --- Enhanced Background --- */
+body {
+    background-color: #f8f9fa;
+    background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    font-family: 'Segoe UI', sans-serif;
+    position: relative;
+    overflow-x: hidden;
+}
+
+body::before, body::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0.5;
+    filter: blur(50px);
+}
+
+body::before {
+    width: 350px;
+    height: 350px;
+    top: 10%;
+    left: -150px;
+    background-color: rgba(220, 53, 69, 0.1); /* Subtle red tint */
+}
+
+body::after {
+    width: 450px;
+    height: 450px;
+    bottom: 5%;
+    right: -180px;
+    background-color: rgba(255, 193, 7, 0.1); /* Subtle yellow tint */
+}
+
+/* --- Delete Confirmation Container --- */
 .delete-container {
-    width: 50%;
-    margin: 50px auto;
+    max-width: 550px;
+    margin: 80px auto;
     padding: 20px;
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1;
+}
+
+.delete-card {
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+    padding: 30px;
     text-align: center;
 }
 
-.delete-container p {
-    margin-bottom: 20px;
+.delete-header h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #1a3a5d;
+    margin-bottom: 10px;
 }
 
-.delete-container .btn-group {
+.delete-header p {
+    font-size: 1.1rem;
+    color: #5a738c;
+    margin-bottom: 25px;
+}
+
+.appointment-summary {
+    background-color: #f8f9fa;
+    border-left: 5px solid #ffc107; /* Warning color */
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    font-style: italic;
+    color: #333;
+}
+
+/* --- Button Group --- */
+.btn-group {
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 15px;
+}
+
+.btn {
+    padding: 10px 25px;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.btn-danger {
+    background-image: linear-gradient(45deg, #dc3545, #c82333);
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
 }
